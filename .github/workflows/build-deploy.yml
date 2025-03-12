@@ -4,31 +4,30 @@ on:
   push:
     branches:
       - main  # Altere conforme necessário para a sua branch principal
-   workflow_dispatch:    # Adiciona a capacidade de execução manual
+  workflow_dispatch:  # Adiciona a capacidade de execução manual
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
 
       - name: Log in to Docker Hub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           push: true
           tags: tupiniquinproject/devopsgram:latest
-          build-args: 
-            NO_CACHE: true
+          build-args: NO_CACHE=true
 
   deploy:
     runs-on: ubuntu-latest
@@ -37,17 +36,21 @@ jobs:
     needs: build
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Log in to OpenShift
-        run: oc login --token=${{ secrets.OPENSHIFT_TOKEN }} --server=${{ secrets.OPENSHIFT_SERVER }} --insecure-skip-tls-verify=true
+        env:
+          OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+          OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
+        run: |
+          oc login --token="$OPENSHIFT_TOKEN" --server="$OPENSHIFT_SERVER" --insecure-skip-tls-verify=true
 
       - name: Switch to OpenShift project
         run: oc project ${{ secrets.OPENSHIFT_PROJECT }}
 
       - name: Apply manifests
         run: |
-          oc delete -f ocp/ || true
+          oc delete -f ocp/ --ignore-not-found=true
           oc apply -f ocp/
 
       - name: Restart deployment
