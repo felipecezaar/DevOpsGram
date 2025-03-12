@@ -43,18 +43,19 @@ jobs:
           OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
           OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
         run: |
-          oc login --token="$OPENSHIFT_TOKEN" --server="$OPENSHIFT_SERVER" --insecure-skip-tls-verify=true
+          oc login --token=${OPENSHIFT_TOKEN} --server=${OPENSHIFT_SERVER} --insecure-skip-tls-verify=true
 
       - name: Switch to OpenShift project
         run: oc project ${{ secrets.OPENSHIFT_PROJECT }}
 
       - name: Apply manifests
         run: |
-          oc delete -f ocp/ --ignore-not-found=true
-          oc apply -f ocp/
+          oc delete -f ocp/ --ignore-not-found=true || true
+          oc apply -f ocp/ || { echo "Falha ao aplicar manifests"; exit 1; }
 
       - name: Restart deployment
-        run: oc rollout restart deployment/devopsgram
+        run: |
+          oc get deployment/devopsgram && oc rollout restart deployment/devopsgram || echo "Deployment não encontrado, pulando restart."
 
       - name: Check rollout status
         run: oc rollout status deployment/devopsgram
