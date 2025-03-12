@@ -1,0 +1,56 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Altere conforme necessário para a sua branch principal
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: tupiniquinproject/devopsgram:latest
+          build-args: 
+            NO_CACHE: true
+
+  deploy:
+    runs-on: ubuntu-latest
+    container:
+      image: quay.io/openshift/origin-cli:4.10
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to OpenShift
+        run: oc login --token=${{ secrets.OPENSHIFT_TOKEN }} --server=${{ secrets.OPENSHIFT_SERVER }} --insecure-skip-tls-verify=true
+
+      - name: Switch to OpenShift project
+        run: oc project ${{ secrets.OPENSHIFT_PROJECT }}
+
+      - name: Apply manifests
+        run: |
+          oc delete -f ocp/ || true
+          oc apply -f ocp/
+
+      - name: Restart deployment
+        run: oc rollout restart deployment/devopsgram
+
+      - name: Check rollout status
+        run: oc rollout status deployment/devopsgram
