@@ -19,8 +19,8 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{env.DOCKER_HUB_USERNAME}}
-          password: ${{env.DOCKER_HUB_PASSWORD}}
+          username: ${{ vars.DOCKER_HUB_USERNAME }}
+          password: ${{ vars.DOCKER_HUB_PASSWORD }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
@@ -40,13 +40,13 @@ jobs:
 
       - name: Log in to OpenShift
         env:
-          OPENSHIFT_TOKEN: ${{env.OPENSHIFT_TOKEN}}
-          OPENSHIFT_SERVER: ${{env.OPENSHIFT_SERVER}}
+          OPENSHIFT_TOKEN: ${{ vars.OPENSHIFT_TOKEN }}
+          OPENSHIFT_SERVER: ${{vars.OPENSHIFT_SERVER }}
         run: |
           oc login --token=${OPENSHIFT_TOKEN} --server=${OPENSHIFT_SERVER} --insecure-skip-tls-verify=true
 
       - name: Switch to OpenShift project
-        run: oc project ${{env.OPENSHIFT_PROJECT}}
+        run: oc project ${{ vars.OPENSHIFT_PROJECT }}
 
       - name: Apply manifests
         run: |
