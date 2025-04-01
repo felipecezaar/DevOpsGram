@@ -28,7 +28,39 @@ jobs:
           push: true
           tags: felipeacezar/devopsgram:latest
           build-args: NO_CACHE=true
+  
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.9
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Atualiza para a última versão
 
+      - name: Set up Python
+        uses: actions/setup-python@v3  # Atualiza para a última versão
+        with:
+          python-version: 3.9
+
+      - name: Cache pip
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest pytest-flask
+
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
+
+      - name: Run tests
+        run: pytest tests/test_app.py
+  
   deploy:
     runs-on: ubuntu-latest
     container:
@@ -41,7 +73,7 @@ jobs:
       - name: Log in to OpenShift
         env:
           OPENSHIFT_TOKEN: ${{ vars.OPENSHIFT_TOKEN }}
-          OPENSHIFT_SERVER: ${{vars.OPENSHIFT_SERVER }}
+          OPENSHIFT_SERVER: ${{ vars.OPENSHIFT_SERVER }}
         run: |
           oc login --token=${OPENSHIFT_TOKEN} --server=${OPENSHIFT_SERVER} --insecure-skip-tls-verify=true
 
@@ -52,10 +84,3 @@ jobs:
         run: |
           oc delete -f ocp/ --ignore-not-found=true || true
           oc apply -f ocp/ || { echo "Falha ao aplicar manifests"; exit 1; }
-
-      - name: Restart deployment
-        run: |
-          oc get deployment/devopsgram && oc rollout restart deployment/devopsgram || echo "Deployment não encontrado, pulando restart."
-
-      - name: Check rollout status
-        run: oc rollout status deployment/devopsgram
