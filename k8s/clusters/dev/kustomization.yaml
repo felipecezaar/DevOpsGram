@@ -2,4 +2,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: devopsgram-dev
 resources:
-  - ../../base
+  - ../../../apps/go-app
+  - image-repository.yaml
+images:
+  - name: felipeacezar/devopsgram:latest # {"$imagepolicy": "devopsgram:name"}
+    newTag: latest # {"$imagepolicy": "devopsgram:tag"}
