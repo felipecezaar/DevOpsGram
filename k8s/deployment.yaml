@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: devopsgram-container
-          image: felipeacezar/devopsgram:0.0.27
+          image: felipeacezar/devopsgram:0.0.29
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
