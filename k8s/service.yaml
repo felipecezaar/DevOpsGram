@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: devopsgram-service
+  namespace: devopsgram-dev
 spec:
   selector:
     app: devopsgram
