@@ -28,18 +28,15 @@ jobs:
           username: ${{ vars.DOCKER_HUB_USERNAME }}
           password: ${{ vars.DOCKER_HUB_PASSWORD }}
 
-      - name: Generate version tag
-        id: tag
+      - name: Generate Semantic Version
+        id: version
         run: |
-          # Opção 1: Versão semântica com timestamp
-          TAG="0.0.$(date +%Y%m%d%H%M)"
-          
-          # Opção 2: Usar git SHA (descomente a linha abaixo)
-          # TAG="$(git rev-parse --short HEAD)"
-          
+          MAJOR=0
+          MINOR=0
+          PATCH=$(git rev-list --count HEAD)
+          TAG="$MAJOR.$MINOR.$PATCH"
           echo "TAG=$TAG" >> $GITHUB_ENV
           echo "NEW_IMAGE=$IMAGE_NAME:$TAG" >> $GITHUB_ENV
-          echo "Nova tag gerada: $TAG"
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
