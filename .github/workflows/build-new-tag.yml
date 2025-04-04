@@ -66,6 +66,7 @@ jobs:
 
       - name: Update deployment manifest
         run: |
+          git pull
           yq eval -i '
             .spec.template.spec.containers[] |= 
             select(.name == "devopsgram-container").image = "'$NEW_IMAGE'"
