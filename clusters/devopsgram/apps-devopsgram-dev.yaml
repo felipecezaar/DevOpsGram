@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: apps-devopsgram-dev
+  namespace: flux-system
+spec:
+  interval: 60s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+path: ./apps/team-base
+prune: true
+wait: true
