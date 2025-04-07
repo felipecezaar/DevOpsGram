@@ -1,5 +1,4 @@
 resources:
   - ../../base
-namespace: devopsgram-dev
-patches:
   - namespace.yaml
+namespace: devopsgram-dev
