@@ -3,14 +3,14 @@ name: CI Pipeline with FluxCD Update
 on:
   push:
     branches:
-      - feature/flux-cd
+      - feature/flux-dev-prod
     paths:
       - '**'
-      - '!k8s/deployment.yaml'  # Ignora alterações no manifesto
+      - '!k8s/base/deployment.yaml'  # Ignora alterações no manifesto
   workflow_dispatch:
 
 env:
-  MANIFEST_PATH: k8s/deployment.yaml
+  MANIFEST_PATH: k8s/base/deployment.yaml
   IMAGE_NAME: felipeacezar/devopsgram
 
 jobs:
