@@ -1,5 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1   # Usando kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-namespace: devopsgram-prod                  # Definindo a namespace corretamente
-resources:
-  - ../../k8s/devopsgram/base                # Caminho correto para os manifests dentro de k8s
