@@ -1,5 +1,5 @@
 resources:
   - ../../base
 namespace: devopsgram-prod
-patchesStrategicMerge:
+patches:
   - namespace.yaml
