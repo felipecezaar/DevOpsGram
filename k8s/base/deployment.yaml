@@ -14,9 +14,7 @@ spec:
     spec:
       containers:
       - name: devopsgram-container
-        image: registry.gitlab.com/felipecezaar/devopsgram
+        image: felipeacezar/devopsgram
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
-      imagePullSecrets:
-      - name: gitlab-registry-secret
