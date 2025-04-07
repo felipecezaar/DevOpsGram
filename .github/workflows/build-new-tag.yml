@@ -3,7 +3,7 @@ name: CI Pipeline with FluxCD Update
 on:
   push:
     branches:
-      - feature/flux-dev
+      - feature/flux-dev-prod
     paths:
       - '**'
       - '!k8s/base/deployment.yaml'  # Ignora alterações no manifesto
