@@ -15,7 +15,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: devopsgram-service
+  name: devopsgram-service-prod
 spec:
   ports:
     - port: 5005       # Altera a porta do service
