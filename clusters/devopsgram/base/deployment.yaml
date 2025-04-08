@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devopsgram
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devopsgram
+  template:
+    metadata:
+      labels:
+        app: devopsgram
+    spec:
+      containers:
+      - name: devopsgram-container
+        image: felipeacezar/devopsgram:0.0.5
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
