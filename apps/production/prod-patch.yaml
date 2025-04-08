@@ -1,0 +1,22 @@
+# Patch para o Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devopsgram
+spec:
+  template:
+    spec:
+      containers:
+      - name: devopsgram-container
+        ports:
+        - containerPort: 5005  # Altera a porta do container
+---
+# Patch para o Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: devopsgram-service
+spec:
+  ports:
+    - port: 5005       # Altera a porta do service
+      targetPort: 5005  # Altera o targetPort para apontar para a nova porta do container
