@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  MANIFEST_PATH: k8s/base/deployment.yaml
+  MANIFEST_PATH: ../base/deployment.yaml
   IMAGE_NAME: felipeacezar/devopsgram
 
 jobs:
