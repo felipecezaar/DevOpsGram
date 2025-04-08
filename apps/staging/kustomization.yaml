@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: devopsgram-stg
 resources:
   - ../base
+  - namespace.yaml

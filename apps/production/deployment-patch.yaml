@@ -1,18 +1,18 @@
-# Patch para o Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: devopsgram-prod  # Novo nome
+  name: devopsgram
 spec:
   selector:
     matchLabels:
-      app: devopsgram-prod  # Atualiza o selector
+      app: devopsgram-prod
   template:
     metadata:
       labels:
-        app: devopsgram-prod  # Atualiza o label
+        app: devopsgram-prod
     spec:
       containers:
       - name: devopsgram-container
         ports:
-        - containerPort: 5005  # Porta alterada para 5005
+        - $patch: replace
+          containerPort: 5005
