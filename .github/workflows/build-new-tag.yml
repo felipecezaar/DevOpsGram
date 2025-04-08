@@ -6,11 +6,11 @@ on:
       - feature/flux-dev-prod
     paths:
       - '**'
-      - '!./apps/base/deployment.yaml'  # Ignora alterações no manifesto
+      - '!./apps/base/devopsgram/deployment.yaml'  # Ignora alterações no manifesto
   workflow_dispatch:
 
 env:
-  MANIFEST_PATH: ./apps/base/deployment.yaml
+  MANIFEST_PATH: ./apps/base/devopsgram/deployment.yaml
   IMAGE_NAME: felipeacezar/devopsgram
 
 jobs:
