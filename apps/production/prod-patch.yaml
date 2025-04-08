@@ -2,24 +2,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: devopsgram-prod  # Adiciona o sufixo -prod
+  name: devopsgram-prod  # Novo nome
 spec:
+  selector:
+    matchLabels:
+      app: devopsgram-prod  # Atualiza o selector
   template:
     metadata:
       labels:
-        app: devopsgram-prod  # Atualiza o label também
+        app: devopsgram-prod  # Atualiza o label
     spec:
       containers:
       - name: devopsgram-container
         ports:
-        - containerPort: 5005  # Altera a porta para produção
----
+        - containerPort: 5005  # Porta alterada para 5005
+
+
 # Patch para o Service
 apiVersion: v1
 kind: Service
 metadata:
-  name: devopsgram-service-prod
+  name: devopsgram-service-prod  # Novo nome
 spec:
   ports:
-    - port: 5005       # Altera a porta do service
-      targetPort: 5005  # Altera o targetPort para apontar para a nova porta do container
+    - protocol: TCP
+      port: 5005       # Porta alterada para 5005
+      targetPort: 5005  # Porta alterada para 5005
+  selector:
+    app: devopsgram-prod  # Atualiza o selector para o novo label

@@ -3,5 +3,13 @@ kind: Kustomization
 namespace: devopsgram-prod
 resources:
   - ../base
-patchesStrategicMerge:
-  - prod-patch.yaml
+  - namespace.yaml
+patches:
+- target:
+    kind: Deployment
+    name: devopsgram
+  path: prod-patch.yaml
+- target:
+    kind: Service
+    name: devopsgram-service
+  path: prod-patch.yaml
