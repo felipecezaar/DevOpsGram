@@ -8,8 +8,8 @@ patches:
 - target:
     kind: Deployment
     name: devopsgram
-  path: prod-patch.yaml
+  path: deployment-patch.yaml
 - target:
     kind: Service
     name: devopsgram-service
-  path: prod-patch.yaml
+  path: service-patch.yaml

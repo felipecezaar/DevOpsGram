@@ -1,0 +1,12 @@
+# Patch para o Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: devopsgram-service-prod  # Novo nome
+spec:
+  ports:
+    - protocol: TCP
+      port: 5005       # Porta alterada para 5005
+      targetPort: 5005  # Porta alterada para 5005
+  selector:
+    app: devopsgram-prod  # Atualiza o selector para o novo label
