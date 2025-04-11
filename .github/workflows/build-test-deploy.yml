@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # Altere conforme necessário para a sua branch principal
+      - hotfix/templates  # Altere conforme necessário para a sua branch principal
   workflow_dispatch:  # Adiciona a capacidade de execução manual
 
 jobs:
