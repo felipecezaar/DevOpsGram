@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main  # Altere conforme necessário para a sua branch principal
+      - hotfix/pipeline-test
   workflow_dispatch:  # Adiciona a capacidade de execução manual
 
 jobs:
