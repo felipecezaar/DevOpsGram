@@ -33,7 +33,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: python:3.9
+      image: ubuntu:latest
     needs: build
     steps:
       - name: Checkout code
