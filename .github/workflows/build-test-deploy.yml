@@ -32,8 +32,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    container:
-      image: python:3.12
+    needs: build
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
