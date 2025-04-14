@@ -33,26 +33,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: ubuntu:latest
-    needs: build
+      image: python:3.12
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install Python and pip
-        run: |
-          apt update
-          apt install -y python3 python3-pip python3-venv
-
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
-          python-version: 3.9
-
-      - name: Create and activate virtual environment
-        run: |
-          python3 -m venv venv
-          source venv/bin/activate
+          python-version: 3.12
 
       - name: Cache pip
         uses: actions/cache@v3
@@ -64,7 +53,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          . venv/bin/activate
           pip install -r requirements.txt
           pip install pytest pytest-flask
 
@@ -72,9 +60,7 @@ jobs:
         run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
 
       - name: Run tests
-        run: |
-          . venv/bin/activate
-          pytest tests/test_app.py
+        run: pytest tests/test_app.py
 
   deploy:
     runs-on: ubuntu-latest
