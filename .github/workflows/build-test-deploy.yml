@@ -29,7 +29,7 @@ jobs:
           push: true
           tags: felipeacezar/devopsgram:latest
           build-args: NO_CACHE=true
-  
+
   test:
     runs-on: ubuntu-latest
     container:
@@ -37,10 +37,15 @@ jobs:
     needs: build
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # Atualiza para a última versão
+        uses: actions/checkout@v3
+
+      - name: Install Python and pip
+        run: |
+          apt update
+          apt install -y python3 python3-pip
 
       - name: Set up Python
-        uses: actions/setup-python@v3  # Atualiza para a última versão
+        uses: actions/setup-python@v3
         with:
           python-version: 3.9
 
@@ -50,19 +55,19 @@ jobs:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
-            #${{ runner.os }}-pip-
+            ${{ runner.os }}-pip-
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
-          pip install pytest pytest-flask
+          pip3 install -r requirements.txt
+          pip3 install pytest pytest-flask
 
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
 
       - name: Run tests
         run: pytest tests/test_app.py
-  
+
   deploy:
     runs-on: ubuntu-latest
     container:
