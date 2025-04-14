@@ -42,12 +42,17 @@ jobs:
       - name: Install Python and pip
         run: |
           apt update
-          apt install -y python3 python3-pip
+          apt install -y python3 python3-pip python3-venv
 
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
           python-version: 3.9
+
+      - name: Create and activate virtual environment
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
 
       - name: Cache pip
         uses: actions/cache@v3
@@ -59,14 +64,17 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip3 install -r requirements.txt
-          pip3 install pytest pytest-flask
+          . venv/bin/activate
+          pip install -r requirements.txt
+          pip install pytest pytest-flask
 
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
 
       - name: Run tests
-        run: pytest tests/test_app.py
+        run: |
+          . venv/bin/activate
+          pytest tests/test_app.py
 
   deploy:
     runs-on: ubuntu-latest
