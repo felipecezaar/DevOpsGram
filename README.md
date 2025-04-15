@@ -1,6 +1,8 @@
-# 🇬🇧 DevOpsGram
+# DevOpsGram
 
 An example project developed in Python with Flask, designed to run on Kubernetes or OpenShift with basic user authentication and registration features.
+
+Note: English version of the documentation. Portuguese version is available right after this version.
 
 ## 📋 Description
 
@@ -132,10 +134,14 @@ python -m pytest tests/
 MIT - See [LICENSE](LICENSE) for details.
 
 
+##########################################################################################
 
-# 🇧🇷 DevOpsGram
+
+# DevOpsGram
 
 Um projeto de exemplo desenvolvido em Python com Flask, projetado para execução em Kubernetes ou OpenShift com funcionalidades básicas de autenticação e cadastro de usuários.
+
+Nota: Versão da documentação em português.
 
 ## 📋 Descrição
 
@@ -231,20 +237,20 @@ DevOpsGram/
 │   ├── pull_request_template.md  # Template para PRs
 │   └── workflows/
 │       └── build-test-deploy.yml # Pipeline CI/CD
-├── ocp/                         # Manifestos K8s/OCP
+├── ocp/                          # Manifestos K8s/OCP
 │   ├── deployment.yaml
 │   ├── route.yaml
 │   └── service.yaml
-├── templates/                   # Telas da aplicação
+├── templates/                    # Telas da aplicação
 │   ├── index.html
 │   ├── login.html
 │   └── signup.html
-├── tests/                       # Testes automatizados
+├── tests/                        # Testes automatizados
 │   └── test_app.py
-├── app.py                       # Aplicação Flask
-├── Dockerfile                   # Configuração Docker
-├── README.md                    # Este arquivo
-└── requirements.txt             # Dependências Python
+├── app.py                        # Aplicação Flask
+├── Dockerfile                    # Configuração Docker
+├── README.md                     # Este arquivo
+└── requirements.txt              # Dependências Python
 ```
 
 ## 🧪 Testes
