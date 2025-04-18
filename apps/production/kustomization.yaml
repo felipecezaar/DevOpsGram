@@ -5,11 +5,24 @@ resources:
   - ../base
   - namespace.yaml
 patches:
-- target:
-    kind: Deployment
-    name: devopsgram
-  path: deployment-patch.yaml
-- target:
-    kind: Service
-    name: devopsgram-service
-  path: service-patch.yaml
+  # Patch para o Deployment (substitui todas as portas)
+  - target:
+      kind: Deployment
+      name: devopsgram
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/ports
+        value:
+          - containerPort: 5005
+
+  # Patch para o Service (substitui todas as portas)
+  - target:
+      kind: Service
+      name: devopsgram-service
+    patch: |-
+      - op: replace
+        path: /spec/ports
+        value:
+          - port: 5005
+            protocol: TCP
+            targetPort: 5005

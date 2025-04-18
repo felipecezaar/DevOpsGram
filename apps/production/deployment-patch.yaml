@@ -3,16 +3,9 @@ kind: Deployment
 metadata:
   name: devopsgram
 spec:
-  selector:
-    matchLabels:
-      app: devopsgram-prod
   template:
-    metadata:
-      labels:
-        app: devopsgram-prod
     spec:
       containers:
       - name: devopsgram-container
         ports:
-        - $patch: replace
-          containerPort: 5005
+        - containerPort: 5005

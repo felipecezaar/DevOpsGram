@@ -4,9 +4,8 @@ metadata:
   name: devopsgram-service
 spec:
   ports:
-  - $patch: replace
-    protocol: TCP
+  - protocol: TCP
     port: 5005
     targetPort: 5005
   selector:
-    app: devopsgram-prod
+    app: devopsgram
