@@ -8,4 +8,4 @@ spec:
       containers:
       - name: devopsgram-container
         ports:
-        - containerPort: 5005
+        - containerPort: 5000
