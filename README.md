@@ -2,7 +2,7 @@
 
 An example project developed in Python with Flask, designed to run on Kubernetes or OpenShift with basic user authentication and registration features.
 
-Note: English version of the documentation. Portuguese version is available right after this version.
+Note: English version of the documentation. Portuguese version and Italian version are available right after this version.
 
 ## 📋 Description
 
@@ -271,3 +271,142 @@ python -m pytest tests/
 ## 📄 Licença
 
 MIT - Veja [LICENSE](LICENSE) para detalhes.
+
+
+#######################################################################################
+
+
+# DevOpsGram
+
+Un progetto di esempio sviluppato in Python con Flask, progettato per essere eseguito su Kubernetes o OpenShift con funzionalità base di autenticazione e registrazione utente.
+
+Nota: versione della documentazione in italiano.
+
+## 📋 Descrizione
+
+DevOpsGram è un'applicazione web che dimostra:
+- Autenticazione utente (login/registrazione)
+- CI/CD con GitHub Actions
+- Deployment su Kubernetes/OpenShift
+- Best practice DevOps
+
+## ✨ Funzionalità
+
+- **Sistema di Autenticazione**:
+  - Login con credenziali
+  - Registrazione nuovi utenti
+- **Pipeline Automatizzata**:
+  - Build, test e deploy automatizzati
+- **Pronto per il Cloud**:
+  - Configurazioni per Kubernetes/OpenShift
+
+## 🛠️ Tecnologie
+
+- Python 3.9+
+- Flask
+- Kubernetes/OpenShift
+- GitHub Actions
+- Docker
+
+## 🚀 Prerequisiti
+
+- Python 3.9+
+- Docker
+- Accesso a un cluster Kubernetes/OpenShift
+- CLI kubectl/oc
+
+## ⚙️ Configurazione
+
+1. Clona il repository:
+   ```bash
+   git clone https://github.com/felipecezaar/DevOpsGram.git
+   cd DevOpsGram
+   ```
+
+2. Crea un ambiente virtuale (consigliato):
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # Linux/MacOS
+   # oppure
+   venv\Scripts\activate      # Windows
+   ```
+
+3. Installa le dipendenze:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## 🏃 Esecuzione Locale
+
+```bash
+flask run
+```
+Accesso: http://localhost:5000
+
+## 🔧 Pipeline CI/CD
+
+Il workflow `.github/workflows/build-test-deploy.yml` automatizza:
+1. Build dell'immagine Docker
+2. Esecuzione dei test
+3. Deployment sul cluster (configura i tuoi GitHub secrets)
+
+## 🐳 Build Docker
+
+```bash
+docker build -t devopsgram:latest .
+```
+
+## ☸️ Deployment
+
+### Kubernetes/OpenShift
+
+```bash
+kubectl apply -f k8s/
+# oppure
+oc apply -f ocp/
+```
+
+Accedi tramite la route esposta dal servizio.
+
+## 📂 Struttura del Progetto
+
+```
+DevOpsGram/
+├── .github/
+│   ├── pull_request_template.md  # Template per le PR
+│   └── workflows/
+│       └── build-test-deploy.yml # Pipeline CI/CD
+├── ocp/                          # Manifest per K8s/OCP
+│   ├── deployment.yaml
+│   ├── route.yaml
+│   └── service.yaml
+├── templates/                    # Viste dell'applicazione
+│   ├── index.html
+│   ├── login.html
+│   └── signup.html
+├── tests/                        # Test automatizzati
+│   └── test_app.py
+├── app.py                        # Applicazione Flask
+├── Dockerfile                    # Configurazione Docker
+├── README.md                     # Questo file
+└── requirements.txt              # Dipendenze Python
+```
+
+## 🧪 Test
+
+Esegui i test con:
+```bash
+python -m pytest tests/
+```
+
+## 🤝 Contributi
+
+1. Fai un fork del progetto
+2. Crea il tuo branch (`git checkout -b feature/foo`)
+3. Commit delle tue modifiche (`git commit -am 'Aggiungi qualche foo'`)
+4. Push sul branch (`git push origin feature/foo`)
+5. Apri una Pull Request
+
+## 📄 Licenza
+
+MIT - Vedi [LICENSE](LICENSE) per i dettagli.
