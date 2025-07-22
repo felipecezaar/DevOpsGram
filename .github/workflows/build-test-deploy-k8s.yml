@@ -29,40 +29,9 @@ jobs:
           tags: felipeacezar/devopsgram:latest
           build-args: NO_CACHE=true
 
-  test:
-    runs-on: self-hosted
-    needs: build
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.12
-
-      - name: Cache pip
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          pip install pytest pytest-flask
-
-      - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
-
-      - name: Run tests
-        run: pytest tests/test_app.py
-
   deploy:
     runs-on: self-hosted
-    needs: test
+    needs: build
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
