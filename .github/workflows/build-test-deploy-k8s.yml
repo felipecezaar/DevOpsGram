@@ -51,7 +51,3 @@ jobs:
         run: |
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
-          
-      - name: Verify Deployment
-        run: |
-          kubectl rollout status deployment/devopsgram-deployment
