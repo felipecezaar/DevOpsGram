@@ -83,3 +83,4 @@ jobs:
         run: |
           oc delete -f ocp/ --ignore-not-found=true || true
           oc apply -f ocp/ || { echo "Falha ao aplicar manifests"; exit 1; }
+          
